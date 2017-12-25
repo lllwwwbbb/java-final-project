@@ -1,9 +1,11 @@
-package cs.lwb.huluwa;
+package cs.lwb;
 
-import cs.lwb.huluwa.debug.Logger;
+import cs.lwb.debug.Logger;
+import cs.lwb.gui.MainWindow;
 
 public class Main {
     public static void main(String[] args) {
+        new MainWindow();
         Logger logger = Logger.getLogger();
         logger.writeLog("GAME START!");
     }

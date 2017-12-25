@@ -1,4 +1,4 @@
-package cs.lwb.huluwa.debug;
+package cs.lwb.debug;
 
 public class Logger {
     private static Logger logger = new Logger();
@@ -6,7 +6,7 @@ public class Logger {
         return logger;
     }
 
-    Logger() {
+    private Logger() {
 
     }
 
