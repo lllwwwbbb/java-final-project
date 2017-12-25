@@ -9,6 +9,7 @@ public abstract class Creature implements Runnable, Drawable{
     private Faction faction;
     private String name;
     private int tickInterval;
+    private CreatureState state = CreatureState.MOVE;
 
     protected Creature(God god, Faction faction, Location location, String name, int tickInterval) {
         this.location = location;
@@ -31,11 +32,19 @@ public abstract class Creature implements Runnable, Drawable{
         return name;
     }
 
+    public Attack attack(Creature target) {
+        Logger.writeLog(this + " attack " + target);
+        state = CreatureState.ATTACK;
+        return new Attack(god,this, target);
+    }
+
     private void notifyGod(Location lastLocation) {
         god.checkCreature(lastLocation, this);
     }
 
     protected boolean moveTo(Location nextLocation) {
+        if (state != CreatureState.MOVE)
+            return false;
         if (nextLocation.x < 0 || nextLocation.x >= god.groundWidth
                 || nextLocation.y < 0 || nextLocation.y >= god.groundHeight)
             return false;

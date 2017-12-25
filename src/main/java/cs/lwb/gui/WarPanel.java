@@ -1,5 +1,7 @@
 package cs.lwb.gui;
 
+import com.sun.istack.internal.NotNull;
+import cs.lwb.huluwa.Attack;
 import cs.lwb.huluwa.Creature;
 import cs.lwb.huluwa.God;
 import cs.lwb.huluwa.Location;
@@ -10,8 +12,9 @@ import java.awt.*;
 public class WarPanel extends JPanel {
     God god;
 
-    public WarPanel(int width, int height, God god) {
+    public WarPanel(int width, int height, @NotNull God god) {
         setPreferredSize(new Dimension(width, height));
+        setBackground(Color.CYAN);
         this.god = god;
         god.setJcanvas(this);
     }
@@ -24,11 +27,12 @@ public class WarPanel extends JPanel {
             for (int j = 0; j < god.groundWidth; j ++) {
                 Creature creature = god.getCreature(new Location(i, j));
                 if (creature != null) {
-                    g.fillRect(gridW * i, gridH * j, gridW, gridH);
-                    g.drawImage(creature.getImage(), gridW * i, gridH * i, gridW, gridH,
-                            new Color(0,0,0,0), this);
+                    g.drawImage(creature.getImage(), gridW * i, gridH * j, gridW, gridH,null);
                 }
             }
+        }
+        for (Attack a : god.getAttacks()) {
+            g.drawImage(a.getImage(), 0,0, getWidth(), getHeight(), null);
         }
     }
 }

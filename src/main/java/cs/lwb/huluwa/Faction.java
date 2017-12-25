@@ -1,5 +1,15 @@
 package cs.lwb.huluwa;
 
-enum Faction {
-    GOOD, BAD
+public enum Faction {
+    GOOD, BAD;
+
+    public Faction getOpposeFaction() {
+        switch (this) {
+            case BAD: return GOOD;
+            case GOOD: return BAD;
+            default: assert false;
+        }
+        assert false;
+        return null;
+    }
 }
