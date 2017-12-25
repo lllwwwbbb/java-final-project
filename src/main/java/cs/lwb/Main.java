@@ -7,7 +7,6 @@ import cs.lwb.huluwa.Ground;
 public class Main {
     public static void main(String[] args) {
         new MainWindow();
-        Logger logger = Logger.getLogger();
-        logger.writeLog("GAME START!");
+        Logger.writeLog("GAME START!");
     }
 }

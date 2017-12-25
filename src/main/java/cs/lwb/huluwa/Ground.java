@@ -3,18 +3,18 @@ package cs.lwb.huluwa;
 public class Ground {
     // width: left to right
     // height: up to down
-    public final int WIDTH, HEIGHT;
+    private final int width, height;
     private final Creature[][] creatures;
 
-    public Ground(int WIDTH, int HEIGHT) {
-        this.WIDTH = WIDTH;
-        this.HEIGHT = HEIGHT;
-        creatures = new Creature[WIDTH][HEIGHT];
+    Ground(int width, int height) {
+        this.width = width;
+        this.height = height;
+        creatures = new Creature[width][height];
     }
 
     Creature getCreature(Location location) {
         int x = location.getX(), y = location.getY();
-        assert x >= 0 && x < WIDTH && y >= 0 && y <= HEIGHT;
+        assert x >= 0 && x < width && y >= 0 && y <= height;
         return creatures[x][y];
     }
 }

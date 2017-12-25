@@ -1,17 +1,29 @@
 package cs.lwb.huluwa;
 
 public abstract class Creature implements Runnable{
-    protected Location location = new Location();
-    protected Space ground;
-    public Creature(Space ground) {
-        this.ground = ground;
+    private Location location;
+    private Space space;
+    private Faction faction;
+    public Creature(Space space, Faction faction) {
+        this.space = space;
+        this.faction = faction;
     }
 
-    public void setLocation(Location location) {
-        this.location = location;
+    private void notifyObserver(Location lastLocation) {
+        space.checkCreature(lastLocation, this);
     }
 
-    public Location getLocation() {
-        return location;
+    Faction getFaction() {
+        return faction;
+    }
+
+    protected boolean moveTo(Location nextLocation) {
+        if (space.getCreature(nextLocation) != null)
+            return false;
+        Location lastLocation = location;
+        location = nextLocation;
+        notifyObserver(lastLocation);
+        return true;
     }
 }
+

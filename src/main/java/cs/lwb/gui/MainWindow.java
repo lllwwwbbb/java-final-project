@@ -4,15 +4,15 @@ import javax.swing.*;
 import java.awt.*;
 
 public class MainWindow extends JFrame{
-    private final int WIDTH = 600, HEIGHT = 400;
     public MainWindow() {
-        setSize(WIDTH, HEIGHT);
-        Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
-        setLocation((screenSize.width - WIDTH)/2, (screenSize.height - HEIGHT)/2);
-        setTitle("葫芦娃大战蛇蝎精");
-        setVisible(true);
-        setDefaultCloseOperation(EXIT_ON_CLOSE);
+        int width = 600, height = 400;
+        add(new WarPanel(width, height), BorderLayout.CENTER);
 
-        add(new WarPanel());
+        pack();
+        setLocationRelativeTo(null);
+        setTitle("葫芦娃大战蛇蝎精");
+        setResizable(false);
+        setDefaultCloseOperation(EXIT_ON_CLOSE);
+        setVisible(true);
     }
 }
