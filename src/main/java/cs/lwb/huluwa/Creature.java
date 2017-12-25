@@ -1,13 +1,17 @@
 package cs.lwb.huluwa;
 
 public abstract class Creature implements Runnable{
-    protected Position position;
-
-    public Position getPosition() {
-        return position;
+    protected Location location = new Location();
+    protected Space ground;
+    public Creature(Space ground) {
+        this.ground = ground;
     }
 
-    void setPosition(Position position) {
-        this.position = position;
+    public void setLocation(Location location) {
+        this.location = location;
+    }
+
+    public Location getLocation() {
+        return location;
     }
 }
