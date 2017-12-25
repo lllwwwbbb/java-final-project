@@ -6,15 +6,19 @@ import cs.lwb.gui.Drawable;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 
-public class Attack implements Drawable {
-    private God god;
+public class Attack implements Drawable, Runnable {
+    private final God god;
     private final Creature attacker;
     private final Creature target;
+    private int tickInterval = 1000;
+    private boolean valid = true;
 
     public Attack(God god, Creature attacker, Creature target) {
         this.god = god;
         this.attacker = attacker;
         this.target = target;
+
+        new Thread(this, attacker + " attack " + target).start();
     }
 
     public Image getImage() {
@@ -29,5 +33,26 @@ public class Attack implements Drawable {
                 tLoc.x * factor + offset, tLoc.y * factor + offset);
         g.dispose();
         return bImg;
+    }
+
+    public void run() {
+        while (attacker.isAlive() && target.isAlive()) {
+            try {
+                Logger.writeLog(attacker + " attack " + target + " damage:" + attacker.getHitPoints());
+                target.damage(attacker.getHitPoints());
+                Thread.sleep(tickInterval);
+            }
+            catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
+        valid = false;
+        attacker.resumeMove();
+        god.repaint();
+    }
+
+    public boolean isValid() {
+        // setting of 'valid' may be delay because of 'sleep'
+        return valid && (attacker.isAlive() && target.isAlive());
     }
 }

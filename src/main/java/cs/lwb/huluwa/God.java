@@ -1,5 +1,7 @@
 package cs.lwb.huluwa;
 
+import cs.lwb.debug.Logger;
+
 import javax.swing.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -23,7 +25,7 @@ public class God {
         this.jcanvas = jcanvas;
     }
 
-    private void repaint() {
+    public void repaint() {
         if (jcanvas != null)
             jcanvas.repaint();
     }
@@ -32,24 +34,29 @@ public class God {
         Location loc = new Location(0,0);
         Creature c = new Laoyeye(this, loc);
         ground.setCreature(loc, c);
-        new Thread(c).start();
 
         loc = new Location(9, 9);
         c = new Shejing(this, loc);
         ground.setCreature(loc, c);
-        new Thread(c).start();
     }
 
-    public void checkCreature(Location lastLocation, Creature creature) {
+    public void checkMove(Location lastLocation, Creature creature) {
         // update ground
         ground.setCreature(lastLocation, null);
         ground.setCreature(creature.getLocation(), creature);
+        Logger.writeLog(creature + " move from" + lastLocation + "To" + creature.getLocation());
 
         // check distance
         Creature enemy = ground.getCreatureNearby(creature.getLocation(), 5,
                 creature.getFaction().getOpposeFaction());
         if (enemy != null)
             attacks.add(creature.attack(enemy));
+        repaint();
+    }
+
+    public void checkDeath(Creature creature) {
+        ground.setCreature(creature.getLocation(), null);
+        Logger.writeLog(creature + "dead!");
         repaint();
     }
 

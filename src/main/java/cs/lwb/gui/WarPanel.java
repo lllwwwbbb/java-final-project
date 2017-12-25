@@ -32,7 +32,8 @@ public class WarPanel extends JPanel {
             }
         }
         for (Attack a : god.getAttacks()) {
-            g.drawImage(a.getImage(), 0,0, getWidth(), getHeight(), null);
+            if (a.isValid())
+                g.drawImage(a.getImage(), 0,0, getWidth(), getHeight(), null);
         }
     }
 }

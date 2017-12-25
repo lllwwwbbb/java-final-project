@@ -10,6 +10,8 @@ public abstract class Creature implements Runnable, Drawable{
     private String name;
     private int tickInterval;
     private CreatureState state = CreatureState.MOVE;
+    private int healthPoints = 100;
+    private int hitPoints = 25;
 
     protected Creature(God god, Faction faction, Location location, String name, int tickInterval) {
         this.location = location;
@@ -17,6 +19,8 @@ public abstract class Creature implements Runnable, Drawable{
         this.faction = faction;
         this.name = name;
         this.tickInterval = tickInterval;
+
+        new Thread(this, this.toString()).start();
     }
 
     Faction getFaction() {
@@ -32,14 +36,25 @@ public abstract class Creature implements Runnable, Drawable{
         return name;
     }
 
+    public boolean isAlive() {
+        return healthPoints > 0;
+    }
+
+    public void damage(int hitPoints) {
+        healthPoints -= hitPoints;
+    }
+
+    public int getHitPoints() {
+        return hitPoints;
+    }
+
     public Attack attack(Creature target) {
-        Logger.writeLog(this + " attack " + target);
         state = CreatureState.ATTACK;
         return new Attack(god,this, target);
     }
 
-    private void notifyGod(Location lastLocation) {
-        god.checkCreature(lastLocation, this);
+    public void resumeMove() {
+        state = CreatureState.MOVE;
     }
 
     protected boolean moveTo(Location nextLocation) {
@@ -52,20 +67,20 @@ public abstract class Creature implements Runnable, Drawable{
             return false;
         Location lastLocation = location;
         location = nextLocation;
-        notifyGod(lastLocation);
-        Logger.writeLog(this + " move from" + lastLocation + "To" + location);
+        god.checkMove(lastLocation, this);
         return true;
     }
 
     public void run() {
-        while (true) {
+        while (isAlive()) {
             try {
                 Thread.sleep(tickInterval);
+                onTick();
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
-            onTick();
         }
+        god.checkDeath(this);
     }
 
     protected abstract void onTick();
