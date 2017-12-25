@@ -1,18 +1,20 @@
 package cs.lwb.huluwa;
 
 public class Location {
-    private final int x, y;
+    public final int x, y;
 
-    Location(int x, int y) {
+    public Location(int x, int y) {
         this.x = x;
         this.y = y;
     }
 
-    public int getX() {
-        return x;
+    public Location getNext(int xOff, int yOff) {
+        return new Location(x + xOff, y + yOff);
     }
 
-    public int getY() {
-        return y;
+    @Override
+    public String toString() {
+        return "(" + x + "," + y + ")";
     }
 }
+

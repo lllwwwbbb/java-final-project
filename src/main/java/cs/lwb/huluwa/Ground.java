@@ -13,8 +13,14 @@ public class Ground {
     }
 
     Creature getCreature(Location location) {
-        int x = location.getX(), y = location.getY();
+        int x = location.x, y = location.y;
         assert x >= 0 && x < width && y >= 0 && y <= height;
         return creatures[x][y];
+    }
+
+    void setCreature(Location location, Creature creature) {
+        int x = location.x, y = location.y;
+        assert x >= 0 && x < width && y >= 0 && y <= height;
+        creatures[x][y] = creature;
     }
 }
