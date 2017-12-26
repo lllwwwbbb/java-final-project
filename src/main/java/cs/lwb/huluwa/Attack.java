@@ -14,7 +14,6 @@ public class Attack implements Drawable, Runnable {
     private final int totalSteps = 10;
     private int tickStep = 0;
     private Image images[];
-    private boolean valid = true;
     private Location aLoc;
     private Location tLoc;
 
@@ -69,13 +68,12 @@ public class Attack implements Drawable, Runnable {
             Logger.writeLog(attacker + " attack " + target + " damage:" + attacker.getHitPoints());
             target.damage(attacker.getHitPoints());
         }
-        valid = false;
         attacker.resumeMove();
         god.repaint();
     }
 
     public boolean isValid() {
         // setting of 'valid' may be delay because of 'sleep'
-        return valid && (attacker.isAlive() && target.isAlive());
+        return   attacker.isAlive() && target.isAlive();
     }
 }

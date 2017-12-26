@@ -3,14 +3,14 @@ package cs.lwb.huluwa;
 import javax.swing.*;
 import java.awt.*;
 
-public class Shejing extends Creature {
+public class SheJing extends Creature {
 
-    public Shejing(God god, Location location) {
+    public SheJing(God god, Location location) {
         super(god, Faction.BAD, location, "蛇精", 800);
     }
 
     protected void onTick() {
-        moveTo(getLocation().getNext(-1,-1));
+        moveTo(getLocation().getNext(-1,0));
     }
 
     private Image image = new ImageIcon(

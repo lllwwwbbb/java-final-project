@@ -32,12 +32,38 @@ public class God {
 
     private void initCreatures() {
         Location loc = new Location(0,0);
-        Creature c = new Laoyeye(this, loc);
-        ground.setCreature(loc, c);
+        ground.setCreature(loc, new Laoyeye(this, loc));
+        loc = loc.getNext(0, 1);
+        ground.setCreature(loc, new DaWa(this, loc));
+        loc = loc.getNext(0, 1);
+        ground.setCreature(loc, new ErWa(this, loc));
+        loc = loc.getNext(0, 1);
+        ground.setCreature(loc, new SanWa(this, loc));
+        loc = loc.getNext(0, 1);
+        ground.setCreature(loc, new SiWa(this, loc));
+        loc = loc.getNext(0, 1);
+        ground.setCreature(loc, new WuWa(this, loc));
+        loc = loc.getNext(0, 1);
+        ground.setCreature(loc, new LiuWa(this, loc));
+        loc = loc.getNext(0, 1);
+        ground.setCreature(loc, new QiWa(this, loc));
 
-        loc = new Location(9, 9);
-        c = new Shejing(this, loc);
-        ground.setCreature(loc, c);
+        loc = new Location(9,0);
+        ground.setCreature(loc, new XieJing(this, loc));
+        loc = loc.getNext(0, 1);
+        ground.setCreature(loc, new SheJing(this, loc));
+        loc = loc.getNext(0, 1);
+        ground.setCreature(loc, new Hama(this, loc));
+        loc = loc.getNext(0, 1);
+        ground.setCreature(loc, new Hama(this, loc));
+        loc = loc.getNext(0, 1);
+        ground.setCreature(loc, new Hama(this, loc));
+        loc = loc.getNext(0, 1);
+        ground.setCreature(loc, new Hama(this, loc));
+        loc = loc.getNext(0, 1);
+        ground.setCreature(loc, new Hama(this, loc));
+        loc = loc.getNext(0, 1);
+        ground.setCreature(loc, new Hama(this, loc));
     }
 
     public void checkMove(Location lastLocation, Creature creature) {
