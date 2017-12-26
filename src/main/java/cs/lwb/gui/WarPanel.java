@@ -37,6 +37,10 @@ public class WarPanel extends JPanel {
         for (int i = 0; i < attackList.size(); i ++) {
             if (attackList.get(i).isValid())
                 g.drawImage(attackList.get(i).getImage(), 0, 0, getWidth(), getHeight(), null);
+            else {
+                attackList.remove(i);
+                i--;
+            }
         }
     }
 }
