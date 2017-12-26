@@ -54,16 +54,18 @@ public class Attack implements Drawable, Runnable {
     }
 
     public void run() {
-        while (attacker.isAlive() && target.isAlive()) {
+        while (isValid()) {
             for (int i = 0; i < totalSteps; i ++) {
                 try {
                     Thread.sleep(tickInterval / totalSteps);
-                    tickStep = i;
-                    god.repaint();
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
+                tickStep = i;
+                god.repaint();
             }
+            if (!isValid())
+                break;
             Logger.writeLog(attacker + " attack " + target + " damage:" + attacker.getHitPoints());
             target.damage(attacker.getHitPoints());
         }

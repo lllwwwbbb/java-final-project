@@ -1,6 +1,7 @@
 package cs.lwb.gui;
 
 import com.sun.istack.internal.NotNull;
+import cs.lwb.debug.Logger;
 import cs.lwb.huluwa.Attack;
 import cs.lwb.huluwa.Creature;
 import cs.lwb.huluwa.God;
@@ -8,6 +9,7 @@ import cs.lwb.huluwa.Location;
 
 import javax.swing.*;
 import java.awt.*;
+import java.util.List;
 
 public class WarPanel extends JPanel {
     God god;
@@ -31,9 +33,10 @@ public class WarPanel extends JPanel {
                 }
             }
         }
-        for (Attack a : god.getAttacks()) {
-            if (a.isValid())
-                g.drawImage(a.getImage(), 0,0, getWidth(), getHeight(), null);
+        List<Attack> attackList = god.getAttacks();
+        for (int i = 0; i < attackList.size(); i ++) {
+            if (attackList.get(i).isValid())
+                g.drawImage(attackList.get(i).getImage(), 0, 0, getWidth(), getHeight(), null);
         }
     }
 }
