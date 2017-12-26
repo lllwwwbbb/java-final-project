@@ -12,6 +12,7 @@ public abstract class Creature implements Runnable, Drawable{
     private CreatureState state = CreatureState.MOVE;
     private int healthPoints = 100;
     private int hitPoints = 25;
+    private final Thread thread;
 
     protected Creature(God god, Faction faction, Location location, String name, int tickInterval) {
         this.location = location;
@@ -20,7 +21,8 @@ public abstract class Creature implements Runnable, Drawable{
         this.name = name;
         this.tickInterval = tickInterval;
 
-        new Thread(this, this.toString()).start();
+        thread = new Thread(this, this.toString());
+        thread.start();
     }
 
     Faction getFaction() {
@@ -42,6 +44,8 @@ public abstract class Creature implements Runnable, Drawable{
 
     public void damage(int hitPoints) {
         healthPoints -= hitPoints;
+        if (!isAlive())
+            thread.interrupt();
     }
 
     public int getHitPoints() {
@@ -77,7 +81,8 @@ public abstract class Creature implements Runnable, Drawable{
                 Thread.sleep(tickInterval);
                 onTick();
             } catch (InterruptedException e) {
-                e.printStackTrace();
+                Logger.writeLog(this + " isInterrupted");
+                break;
             }
         }
         god.checkDeath(this);

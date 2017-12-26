@@ -1,6 +1,6 @@
 package cs.lwb.huluwa;
 
-public class Location {
+public class Location implements Comparable<Location>{
     public final int x, y;
 
     public Location(int x, int y) {
@@ -15,6 +15,13 @@ public class Location {
     @Override
     public String toString() {
         return "(" + x + "," + y + ")";
+    }
+
+    public int compareTo(Location o) {
+        if (x == o.x)
+            return y - o.y;
+        else
+            return x - o.x;
     }
 }
 
