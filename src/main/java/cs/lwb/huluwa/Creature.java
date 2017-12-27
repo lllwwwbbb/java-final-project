@@ -10,16 +10,18 @@ public abstract class Creature implements Runnable, Drawable{
     private String name;
     private int tickInterval;
     private CreatureState state = CreatureState.MOVE;
-    private int healthPoints = 100;
-    private int hitPoints = 25;
+    private int healthPoints;
+    private int hitPoints;
     private final Thread thread;
 
-    protected Creature(God god, Faction faction, Location location, String name, int tickInterval) {
+    protected Creature(God god, Faction faction, Location location, String name, Speed speed, Capability capability) {
         this.location = location;
         this.god = god;
         this.faction = faction;
         this.name = name;
-        this.tickInterval = tickInterval;
+        this.tickInterval = speed.interval;
+        this.healthPoints = capability.healthPoints;
+        this.hitPoints = capability.hitPoints;
 
         thread = new Thread(this, this.toString());
         thread.start();
@@ -89,5 +91,42 @@ public abstract class Creature implements Runnable, Drawable{
     }
 
     protected abstract void onTick();
+
+    public enum CreatureState {
+        MOVE, ATTACK
+    }
+
+    public enum Faction {
+        GOOD, BAD;
+
+        public Faction getOpposeFaction() {
+            switch (this) {
+                case BAD: return GOOD;
+                case GOOD: return BAD;
+                default: assert false;
+            }
+            assert false;
+            return null;
+        }
+    }
+
+    protected enum Speed {
+        SLOW(1500), NORMAL(1000), FAST(700);
+
+        public int interval;
+        Speed(int interval) {
+            this.interval = interval;
+        }
+    }
+
+    protected enum  Capability {
+        WEAK(70, 20), NORMAL(100, 30), POWERFUL(120, 35);
+
+        public int healthPoints, hitPoints;
+        Capability(int healthPoints, int hitPoints) {
+            this.healthPoints = healthPoints;
+            this.hitPoints = hitPoints;
+        }
+    }
 }
 

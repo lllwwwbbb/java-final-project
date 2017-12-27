@@ -6,7 +6,7 @@ import java.awt.*;
 public class SheJing extends Creature {
 
     public SheJing(God god, Location location) {
-        super(god, Faction.BAD, location, "蛇精", 800);
+        super(god, Faction.BAD, location, "蛇精", Speed.SLOW, Capability.POWERFUL);
     }
 
     protected void onTick() {

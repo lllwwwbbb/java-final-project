@@ -6,7 +6,7 @@ import java.awt.*;
 public class ErWa extends Creature {
 
     public ErWa(God god, Location location) {
-        super(god, Faction.GOOD, location, "二娃", 1000);
+        super(god, Faction.GOOD, location, "二娃", Speed.NORMAL, Capability.NORMAL);
     }
 
     protected void onTick() {

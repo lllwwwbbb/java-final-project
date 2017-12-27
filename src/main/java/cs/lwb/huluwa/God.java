@@ -83,6 +83,12 @@ public class God {
     public void checkDeath(Creature creature) {
         ground.setCreature(creature.getLocation(), null);
         Logger.writeLog(creature + "dead!");
+        for (int i = 0; i < attacks.size(); i ++) {
+            if (attacks.get(i).isValid())
+                continue;
+            attacks.remove(i);
+            i --;
+        }
         repaint();
     }
 

@@ -24,7 +24,7 @@ public class Ground {
         creatures[x][y] = creature;
     }
 
-    Creature getCreatureNearby(Location location, int distance, Faction faction) {
+    Creature getCreatureNearby(Location location, int distance, Creature.Faction faction) {
         int up = location.y - distance, bottom = location.y + distance,
                 left = location.x - distance, right = location.y + distance;
         if (up < 0) up = 0;

@@ -6,7 +6,7 @@ import java.awt.*;
 public class QiWa extends Creature {
 
     public QiWa(God god, Location location) {
-        super(god, Faction.GOOD, location, "七娃", 1000);
+        super(god, Faction.GOOD, location, "七娃", Speed.NORMAL, Capability.NORMAL);
     }
 
     protected void onTick() {
