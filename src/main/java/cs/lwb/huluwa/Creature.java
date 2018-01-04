@@ -120,7 +120,7 @@ public abstract class Creature implements Runnable, Drawable{
     }
 
     protected enum  Capability {
-        WEAK(70, 20), NORMAL(100, 30), POWERFUL(120, 35);
+        WEAK(210, 20), NORMAL(300, 30), POWERFUL(360, 35);
 
         public int healthPoints, hitPoints;
         Capability(int healthPoints, int hitPoints) {

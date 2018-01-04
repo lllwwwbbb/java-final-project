@@ -41,7 +41,7 @@ public class Attack implements Drawable, Runnable {
             Graphics g = ((BufferedImage)images[i]).createGraphics();
             g.setColor(Color.RED);
             ((Graphics2D)g).setStroke(new BasicStroke(2));
-            g.drawLine(xStart, yStart, xStart + (int)(xStep * (i + 1)), yStart + (int)(yStep * (i + 1)));
+            g.drawLine(xStart + (int)(xStep * i), yStart + (int)(yStep * i), xStart + (int)(xStep * (i + 1)), yStart + (int)(yStep * (i + 1)));
             g.dispose();
         }
     }

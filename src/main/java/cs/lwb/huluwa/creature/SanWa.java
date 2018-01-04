@@ -1,4 +1,8 @@
-package cs.lwb.huluwa;
+package cs.lwb.huluwa.creature;
+
+import cs.lwb.huluwa.Creature;
+import cs.lwb.huluwa.God;
+import cs.lwb.huluwa.Location;
 
 import javax.swing.*;
 import java.awt.*;

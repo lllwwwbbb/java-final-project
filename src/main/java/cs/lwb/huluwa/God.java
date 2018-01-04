@@ -1,6 +1,7 @@
 package cs.lwb.huluwa;
 
 import cs.lwb.debug.Logger;
+import cs.lwb.huluwa.creature.*;
 
 import javax.swing.*;
 import java.util.ArrayList;
