@@ -1,6 +1,8 @@
 package cs.lwb.huluwa;
 
-public class Location implements Comparable<Location>{
+import java.io.Serializable;
+
+public class Location implements Comparable<Location>, Serializable{
     public final int x, y;
 
     public Location(int x, int y) {

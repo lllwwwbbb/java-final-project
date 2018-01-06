@@ -1,5 +1,8 @@
 package cs.lwb.huluwa;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class Ground {
     // width: left to right
     // height: up to down
@@ -26,18 +29,24 @@ public class Ground {
 
     Creature getCreatureNearby(Location location, int distance, Creature.Faction faction) {
         int up = location.y - distance, bottom = location.y + distance,
-                left = location.x - distance, right = location.y + distance;
+                left = location.x - distance, right = location.x + distance;
         if (up < 0) up = 0;
         if (bottom >= height) bottom = height - 1;
         if (left < 0) left = 0;
         if (right >= width) right = width - 1;
 
+        List<Creature> enemies = new ArrayList<>();
         for (int i = left; i <= right; i ++) {
             for (int j = up; j <= bottom; j ++) {
                 if (creatures[i][j] != null && creatures[i][j].getFaction() == faction) {
-                    return creatures[i][j];
+                    enemies.add(creatures[i][j]);
                 }
             }
+        }
+        if (enemies.size() > 0) {
+            double rnd = Math.random();
+            int irnd = (int)(enemies.size() * rnd);
+            return enemies.get(irnd);
         }
         return null;
     }

@@ -1,18 +1,20 @@
 package cs.lwb.huluwa;
 
-import cs.lwb.debug.Logger;
+import cs.lwb.log.Logger;
 import cs.lwb.gui.Drawable;
+
+import java.io.Serializable;
 
 public abstract class Creature implements Runnable, Drawable{
     private Location location;
-    private God god;
+    private final God god;
     private Faction faction;
     private String name;
     private int tickInterval;
     private CreatureState state = CreatureState.MOVE;
     private int healthPoints;
     private int hitPoints;
-    private final Thread thread;
+    private transient final Thread thread;
 
     protected Creature(God god, Faction faction, Location location, String name, Speed speed, Capability capability) {
         this.location = location;
@@ -22,9 +24,15 @@ public abstract class Creature implements Runnable, Drawable{
         this.tickInterval = speed.interval;
         this.healthPoints = capability.healthPoints;
         this.hitPoints = capability.hitPoints;
-
         thread = new Thread(this, this.toString());
+    }
+
+    public void start() {
         thread.start();
+    }
+
+    public void end() {
+        thread.interrupt();
     }
 
     Faction getFaction() {
@@ -46,8 +54,10 @@ public abstract class Creature implements Runnable, Drawable{
 
     public void damage(int hitPoints) {
         healthPoints -= hitPoints;
-        if (!isAlive())
+        if (!isAlive()) {
             thread.interrupt();
+            god.checkDeath(this);
+        }
     }
 
     public int getHitPoints() {
@@ -61,6 +71,7 @@ public abstract class Creature implements Runnable, Drawable{
 
     public void resumeMove() {
         state = CreatureState.MOVE;
+        god.checkDistance(this);
     }
 
     protected boolean moveTo(Location nextLocation) {
@@ -81,18 +92,18 @@ public abstract class Creature implements Runnable, Drawable{
         while (isAlive()) {
             try {
                 Thread.sleep(tickInterval);
-                onTick();
+                synchronized (god) {
+                    onTick();
+                }
             } catch (InterruptedException e) {
-                Logger.writeLog(this + " isInterrupted");
                 break;
             }
         }
-        god.checkDeath(this);
     }
 
     protected abstract void onTick();
 
-    public enum CreatureState {
+    public enum CreatureState implements Serializable {
         MOVE, ATTACK
     }
 
@@ -120,7 +131,7 @@ public abstract class Creature implements Runnable, Drawable{
     }
 
     protected enum  Capability {
-        WEAK(210, 20), NORMAL(300, 30), POWERFUL(360, 35);
+        WEAK(200, 30), NORMAL(270, 35), POWERFUL(300, 45);
 
         public int healthPoints, hitPoints;
         Capability(int healthPoints, int hitPoints) {
