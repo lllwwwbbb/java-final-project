@@ -114,6 +114,8 @@ public abstract class God {
     }
 
     protected synchronized void checkAttack(Creature creature, Creature enemy) {
+        if (creature == null || !creature.isAlive())
+            return;
         if (enemy == null || !enemy.isAlive())
             return;
         Logger.writeLog(creature + " attack " + enemy + " damage:" + creature.getHitPoints());
