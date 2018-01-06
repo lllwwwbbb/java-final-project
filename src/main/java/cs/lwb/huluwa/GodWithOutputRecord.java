@@ -57,7 +57,10 @@ public class GodWithOutputRecord extends God {
         super.end();
         File file = outputRecord.close();
         timer.stop();
-        JOptionPane.showMessageDialog(jcanvas,
-                "回放文件已保存到" + file.getAbsolutePath());
+        Runnable showMsg = ()-> {
+            JOptionPane.showMessageDialog(jcanvas,
+                    "回放文件已保存到" + file.getAbsolutePath());
+        };
+        SwingUtilities.invokeLater(showMsg);
     }
 }
