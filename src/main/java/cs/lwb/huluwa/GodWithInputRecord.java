@@ -30,6 +30,7 @@ public class GodWithInputRecord extends God {
                     Object o = inputRecord.read();
                     if (o == null) {
                         timer.stop();
+                        inputRecord.close();
                         break;
                     }
                     if (o instanceof Integer) {
