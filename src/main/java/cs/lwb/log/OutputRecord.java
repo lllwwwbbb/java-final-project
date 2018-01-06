@@ -1,14 +1,8 @@
 package cs.lwb.log;
 
-import javax.imageio.ImageIO;
-import javax.swing.*;
-import java.awt.*;
-import java.awt.image.BufferedImage;
-import java.awt.image.RenderedImage;
 import java.io.*;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.List;
 
 public class OutputRecord {
 

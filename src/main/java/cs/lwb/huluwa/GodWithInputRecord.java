@@ -55,6 +55,6 @@ public class GodWithInputRecord extends God {
 
     @Override
     public void checkDistance(Creature creature) {
-
+        // make it empty
     }
 }

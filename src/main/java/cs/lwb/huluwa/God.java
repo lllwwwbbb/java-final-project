@@ -1,6 +1,5 @@
 package cs.lwb.huluwa;
 
-import cs.lwb.gui.Drawable;
 import cs.lwb.log.Logger;
 import cs.lwb.huluwa.creature.*;
 
@@ -16,10 +15,6 @@ public abstract class God {
     protected JComponent jcanvas;
     public final int groundWidth = 18, groundHeight = 7;
     private Ground ground = new Ground(groundWidth, groundHeight);
-
-    public List<Attack> getAttacks() {
-        return attacks;
-    }
 
     private List<Attack> attacks = new ArrayList<Attack>();
 
@@ -110,7 +105,7 @@ public abstract class God {
         repaint();
     }
 
-    public void checkDistance(Creature creature) {
+    public synchronized void checkDistance(Creature creature) {
         Creature enemy = ground.getCreatureNearby(creature.getLocation(), 5,
                 creature.getFaction().getOpposeFaction());
         if (enemy != null) {
@@ -157,7 +152,7 @@ public abstract class God {
         paint(g, creatures, attacks);
     }
 
-    protected List<Creature> getCreatures() {
+    private List<Creature> getCreatures() {
         List<Creature> creatures = new ArrayList<Creature>();
         for (int i = 0; i < groundWidth; i ++) {
             for (int j = 0; j < groundHeight; j ++) {
@@ -170,7 +165,7 @@ public abstract class God {
         return creatures;
     }
 
-    protected void paint(Graphics g, List<Creature> creatures, List<Attack> attacks) {
+    private void paint(Graphics g, List<Creature> creatures, List<Attack> attacks) {
         int gridW = jcanvas.getWidth() / groundWidth, gridH = jcanvas.getHeight() / groundHeight;
         for (Creature c : creatures) {
             g.drawImage(c.getImage(), gridW * c.getLocation().x, gridH * c.getLocation().y, gridW, gridH, null);

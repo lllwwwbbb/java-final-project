@@ -1,15 +1,10 @@
 package cs.lwb.log;
 
-import javax.imageio.ImageIO;
-import java.awt.image.BufferedImage;
 import java.io.*;
-import java.util.ArrayList;
-import java.util.List;
 
 public class InputRecord {
 
-    private ObjectInputStream ois;// = new ObjectInputStream(new BufferedInputStream(new FileInputStream(
-            //"C:/Users/luowebb/OneDrive - smail.nju.edu.cn/Desktop/output.record")));
+    private ObjectInputStream ois;
 
     public InputRecord(File file) throws IOException {
         ois = new ObjectInputStream(new BufferedInputStream(new FileInputStream(file)));
